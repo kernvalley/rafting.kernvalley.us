@@ -44,3 +44,9 @@ gem "jekyll-paginate", "~> 1.1"
 
 # Added at 2018-01-25 13:37:57 -0800 by shgysk8zer0:
 gem "jekyll-watch", "~> 1.5"
+
+# Added at 2018-05-30 14:45:40 -0700 by shgysk8zer0:
+gem "rb-fsevent", "~> 0.10.3"
+
+# Added at 2018-05-30 14:45:54 -0700 by shgysk8zer0:
+gem "ruby_dep", "~> 1.5"
