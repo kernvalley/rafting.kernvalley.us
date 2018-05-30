@@ -21,3 +21,9 @@ gem "listen", "~> 3.1"
 
 # Added at 2018-05-30 15:05:48 -0700 by shgysk8zer0:
 gem "jekyll-watch", "~> 2.0"
+
+# Added at 2018-05-30 15:11:09 -0700 by shgysk8zer0:
+gem "rb-fsevent", ">= 0.9.4", "~> 0.9"
+
+# Added at 2018-05-30 15:11:41 -0700 by shgysk8zer0:
+gem "ruby_dep", "~> 1.2"
