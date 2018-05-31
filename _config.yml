@@ -29,6 +29,7 @@ keywords:
 - kern valley
 - kern river valley
 - rafting
+- whitewater
 repository:
   username: kernvalley
   title: rafting.kernvalley.us
@@ -38,7 +39,7 @@ feed:
   url: /feed.rss
   type: application/rss+xml
 icons: '/img/icons.svg'
-theme-color: '#009688'
+theme-color: '#0031c6'
 background-color: '#242424'
 # discus-identifier:
 google-analytics: UA-119717465-1

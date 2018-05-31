@@ -23,10 +23,10 @@
 	--alt-color: #FAFAFA;
 	--primary-color: #E0E0E0;
 	--link-color: var(--accent-color);
-	--accent-color: #008000;
-	--accent-color-2: #125D0C;
+	--accent-color: #0031c6;
+	--accent-color-2: #002491;
 	--border-color: #2D2D2D;
-	--header-bg-color: #1b5e20;
+	--header-bg-color: #0031c6;
 
 	--button-background: var(--accent-color);
 	--button-active-background: var(--accent-color-2);
