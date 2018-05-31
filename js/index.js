@@ -1,6 +1,6 @@
 import './std-js/shims.js';
 import './std-js/deprefixer.js';
-import {loaded, $, wait, registerServiceWorker} from './std-js/functions.js';
+import {loaded, $, registerServiceWorker} from './std-js/functions.js';
 import webShareApi from './std-js/webShareApi.js';
 import {
 	facebook,
