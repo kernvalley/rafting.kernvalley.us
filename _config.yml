@@ -41,7 +41,7 @@ feed:
 icons: '/img/icons.svg'
 theme-color: '#0031c6'
 background-color: '#242424'
-# discus-identifier:
+discus-identifier: kernvalley-us
 google-analytics: UA-119717465-2
 # ad-sense:
 webmaster-verifications:
