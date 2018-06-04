@@ -5,3 +5,4 @@ footer:
   - text: Events
     href: 'https://events.kernvalley.us'
     icon: calendar
+    target: _blank
