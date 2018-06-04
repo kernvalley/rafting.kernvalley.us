@@ -39,6 +39,7 @@ feed:
   url: /feed.rss
   type: application/rss+xml
 icons: '/img/icons.svg'
+logo: rafting
 theme-color: '#0031c6'
 background-color: '#242424'
 discus-identifier: kernvalley-us
