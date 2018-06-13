@@ -20,13 +20,14 @@ body {
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
+	background-attachment: fixed;
 }
 
-body[data-scene="lake"] {
+[data-scene="lake"] {
 	background-image: var(--lake-background-h);
 }
 
-body[data-scene="river"] {
+[data-scene="river"] {
 	background-image: var(--river-background-h);
 }
 
@@ -34,8 +35,16 @@ dialog {
 	border: none;
 }
 
+main {
+	width: 95vw;
+	background-color: rgba(255,255,255,0.6);
+	margin: 0.8rem 2.5vw;
+	padding: 1.2rem;
+	border-radius: 0.5rem;
+}
+
 .directory-listings {
-	grid-template-columns: repeat(auto-fill, minmax(400px, 650px));
+	grid-template-columns: repeat(auto-fill, minmax(300px, 600px));
 	grid-gap: 0.8em;
 }
 
