@@ -46,7 +46,7 @@ main {
 }
 
 .directory-listings {
-	grid-template-columns: repeat(auto-fill, minmax(300px, 600px));
+	grid-template-columns: repeat(auto-fill, minmax(250px, 600px));
 	grid-gap: 0.8em;
 }
 
@@ -54,9 +54,11 @@ main {
 	line-height: 1.8;
 }
 
-.directory-listings figure {
-	max-width: 40%;
-	margin-left: 0;
+@media (min-width: 801px) {
+	.directory-listings figure {
+		max-width: 40%;
+		margin-left: 0;
+	}
 }
 
 @media (orientation: landscape and min-width: 1025), (orientation: portrait and max-height: 768px) {
