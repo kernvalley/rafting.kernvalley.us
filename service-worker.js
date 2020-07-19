@@ -1,102 +1,98 @@
-const config = {
-	version: 'kernvalley',
-	caches: [
-		// Main assets
-		'/',
-		'/contact/',
-		'/js/index.min.js',
-		'/css/styles/index.min.css',
-		'/img/icons.svg',
-		'/img/favicon.svg',
+---
+layout: null
+---
+'use strict';
+/* global config */
+/* eslint-env serviceworker */
+/* {{ site.data.app.version | default: site.version }} */
 
-		// Logos
-		'/img/logos/facebook.svg',
-		'/img/logos/twitter.svg',
-		'/img/logos/linkedin.svg',
-		'/img/logos/google-plus.svg',
-		'/img/logos/reddit.svg',
-		'/img/logos/gmail.svg',
+self.importScripts('{{ site.service-worker-config | default: "/sw-config.js" }}');
 
-		// Fonts
-		'/fonts/Alice.woff2',
-		'/fonts/roboto.woff2',
-	],
-	ignored: [
-		'/service-worker.js',
-		'/manifest.json',
-	],
-	paths: [
-		'/js/',
-		'/css/',
-		'/img/',
-		'/fonts/',
-		'/posts/',
-		'/contact/',
-		'/rafting/',
-	],
-	hosts: [
-		'secure.gravatar.com',
-		'i.imgur.com',
-		'cdn.polyfill.io',
-	],
-};
-
-addEventListener('install', async () => {
-	const cache = await caches.open(config.version);
-	await cache.addAll(config.caches);
-	skipWaiting();
-
-});
-
-addEventListener('activate', event => {
-	event.waitUntil(async function() {
-		clients.claim();
-	}());
-});
-
-addEventListener('fetch', async event => {
-	function isValid(req) {
+self.addEventListener('install', async event => {
+	event.waitUntil((async () => {
 		try {
-			const url = new URL(req.url);
-			const isGet = req.method === 'GET';
-			const allowedHost = config.hosts.includes(url.host);
-			const isHome = ['/', '/index.html', '/index.php'].some(path => url.pathname === path);
-			const notIgnored = config.ignored.every(path => url.pathname !== path);
-			const allowedPath = config.paths.some(path => url.pathname.startsWith(path));
-
-			return isGet && (allowedHost || (isHome || (allowedPath && notIgnored)));
-		} catch(err) {
-			console.error(err);
-			return false;
-		}
-	}
-
-	async function get(request) {
-		const cache = await caches.open(config.version);
-		const cached = await cache.match(request);
-
-		if (navigator.onLine) {
-			const fetched = fetch(request).then(async resp => {
-				if (resp instanceof Response && resp.ok) {
-					const respClone = await resp.clone();
-					await cache.put(event.request, respClone);
+			for (const key of await caches.keys()) {
+				if (key !== 'user') {
+					await caches.delete(key);
 				}
-				return resp;
-			});
-
-			if (cached instanceof Response) {
-				return cached;
-			} else {
-				const resp = await fetched;
-				return resp;
 			}
-		} else {
-			return cached;
-		}
-	}
 
-	if (isValid(event.request)) {
-		// console.log(event.request.url);
-		event.respondWith(get(event.request));
+			const cache = await caches.open(config.version);
+			await cache.addAll([...config.stale || [], ...config.fresh || []]).catch(console.error);
+		} catch (err) {
+			console.error(err);
+		}
+	})());
+});
+
+self.addEventListener('activate', event => event.waitUntil(clients.claim()));
+
+self.addEventListener('fetch', event => {
+	if (event.request.method === 'GET') {
+		event.respondWith((async () => {
+			if (Array.isArray(config.stale) && config.stale.includes(event.request.url)) {
+				const cached = await caches.match(event.request);
+				if (cached instanceof Response) {
+					return cached;
+				} else {
+					const [resp, cache] = await Promise.all([
+						fetch(event.request),
+						caches.open(config.version),
+					]);
+
+					if (resp.ok) {
+						cache.put(event.request, resp.clone());
+					}
+
+					return resp;
+				}
+			} else if (Array.isArray(config.fresh) && config.fresh.includes(event.request.url)) {
+				if (navigator.onLine) {
+					const [resp, cache] = await Promise.all([
+						fetch(event.request),
+						caches.open(config.version),
+					]);
+
+					if (resp.ok) {
+						cache.put(event.request, resp.clone());
+					}
+					return resp;
+				} else {
+					return caches.match(event.request);
+				}
+			} else if (Array.isArray(config.allowed) && config.allowed.some(entry => (
+				entry instanceof RegExp
+					? entry.test(event.request.url)
+					: event.request.url.startsWith(entry)
+			))) {
+				const resp = await caches.match(event.request);
+
+				if (resp instanceof Response) {
+					return resp;
+				} else {
+					const resp = await fetch(event.request);
+
+					if (resp instanceof Response) {
+						const cpy = resp.clone();
+						caches.open(config.version).then(cache => cache.put(event.request, cpy));
+						return resp;
+					} else {
+						console.error(`Failed in request for ${event.request.url}`);
+					}
+				}
+			} else {
+				return fetch(event.request);
+			}
+		})());
 	}
 });
+
+self.addEventListener('push', event => {
+	const data = event.data.json();
+	if (('notification' in data) && Array.isArray(data.notification) && Notification.permission === 'granted') {
+
+		this.registration.showNotification(...data.notification);
+	}
+});
+
+self.addEventListener('error', console.error);
