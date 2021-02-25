@@ -8,32 +8,32 @@ theme:
   color: '#528ff9'
   background: '#242424'
 icons:
-- src: /img/favicon.svg
-  type: image/svg+xml
-  sizes: 150x150
-  purpose: maskable any
-- src: /img/apple-touch-icon.png
-  rel: apple-touch-icon
-  type: image/png
-  sizes: 180x180
-- src: /img/icon-512.png
-  type: image/png
-  sizes: 512x512
-  purpose: maskable any
-- src: /img/icon-192.png
-  type: image/png
-  sizes: 192x192
-  purpose: maskable any
-- src: /img/icon-32.png
-  type: image/png
-  sizes: 32x32
-- src: /img/icon-16.png
-  type: image/png
-  sizes: 16x16
+  - src: /img/favicon.svg
+    type: image/svg+xml
+    sizes: 150x150
+    purpose: maskable any
+  - src: /img/apple-touch-icon.png
+    rel: apple-touch-icon
+    type: image/png
+    sizes: 180x180
+  - src: /img/icon-512.png
+    type: image/png
+    sizes: 512x512
+    purpose: maskable any
+  - src: /img/icon-192.png
+    type: image/png
+    sizes: 192x192
+    purpose: maskable any
+  - src: /img/icon-32.png
+    type: image/png
+    sizes: 32x32
+  - src: /img/icon-16.png
+    type: image/png
+    sizes: 16x16
 screenshots:
-- src: 'https://i.imgur.com/gu5oTzul.png'
-  sizes: 640x300
-  type: image/png
+  - src: 'https://i.imgur.com/gu5oTzul.png'
+    sizes: 640x300
+    type: image/png
 # https://web.dev/app-shortcuts/
 shortcuts: []
 related_applications: []
