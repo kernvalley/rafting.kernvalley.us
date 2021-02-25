@@ -14,20 +14,6 @@ import { init } from 'https://cdn.kernvalley.us/js/std-js/data-handlers.js';
 import { importGa, externalHandler, telHandler, mailtoHandler } from 'https://cdn.kernvalley.us/js/std-js/google-analytics.js';
 import { GA } from './consts.js';
 
-$(':root').css({'--viewport-height': `${window.innerHeight}px`});
-
-requestIdleCallback(() => {
-	$(window).debounce('resize', () => $(':root').css({'--viewport-height': `${window.innerHeight}px`}));
-
-	$(window).on('scroll', () => {
-		requestAnimationFrame(() => {
-			$('#header').css({
-				'background-position-y': `${-0.5 * scrollY}px`,
-			});
-		});
-	}, { passive: true });
-});
-
 $(document.documentElement).toggleClass({
 	'no-dialog': document.createElement('dialog') instanceof HTMLUnknownElement,
 	'no-details': document.createElement('details') instanceof HTMLUnknownElement,
